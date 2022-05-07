@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -8,6 +10,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String resultado = "";
+
+  void buscaCEP() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +38,13 @@ class _HomeState extends State<Home> {
               ),
               Container(
                 color: Colors.amber,
-                margin: EdgeInsets.all(15),
+                margin: EdgeInsets.all(20),
                 child: TextButton(
                   onPressed: () => {},
                   child: Text("Pesquisar"),
                 ),
-              )
+              ),
+              Text(resultado)
             ],
           ),
         ),
