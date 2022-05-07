@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+//import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,8 +11,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String resultado = "";
+  TextEditingController txtCEP = TextEditingController();
 
-  void buscaCEP() {}
+  Future<void> buscarCEP() async {
+    String cep = txtCEP.text;
+    var url = Uri.https('viacep.com.br', '/ws/$cep/json/', {'q': '{http}'});
+    http.Response response;
+
+    response = await http.get(url);
+
+    print('Resposta:' + response.body);
+
+    print('Resposta Servidor:' + response.statusCode.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +38,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: <Widget>[
               TextField(
+                controller: txtCEP,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "Digite um CEP",
@@ -40,7 +52,7 @@ class _HomeState extends State<Home> {
                 color: Colors.amber,
                 margin: EdgeInsets.all(20),
                 child: TextButton(
-                  onPressed: () => {},
+                  onPressed: buscarCEP,
                   child: Text("Pesquisar"),
                 ),
               ),
