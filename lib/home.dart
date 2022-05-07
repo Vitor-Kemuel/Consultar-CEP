@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-//import 'dart:convert';
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,6 +23,19 @@ class _HomeState extends State<Home> {
     print('Resposta:' + response.body);
 
     print('Resposta Servidor:' + response.statusCode.toString());
+    Map<String, dynamic> dados = json.decode(response.body);
+
+    String logradouro = dados["logradouro"];
+    String complemento = dados["complemento"];
+    String bairro = dados["bairro"];
+    String localidade = dados["localidade"];
+
+    String respostaCEP =
+        "Endereço\n$logradouro\nComplemento: $complemento\nBairro: $bairro, $localidade";
+
+    setState(() {
+      resultado = respostaCEP;
+    });
   }
 
   @override
